@@ -13,9 +13,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 //主页界面
 public class HomeActivity extends AppCompatActivity {
+    private RecyclerView recyclerView;
+    private MyRecycleAdapter adapter;
+    private List<ItemData> dataList;
+
 
     //与菜单栏响应
     @Override
@@ -44,7 +53,7 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_homeactivity);
 
         //找到第一个添加课程的按钮   button_jump
-        Button addBtn =  findViewById(R.id.button_jump);
+        Button addBtn = findViewById(R.id.button_jump);
         //第二个删除课程的按钮    remove_button
         Button removeBtn = findViewById(R.id.remove_button);
 
@@ -59,6 +68,63 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        //找到 RecyclerView 控件
+        recyclerView = findViewById(R.id.recyclerView);
+        //准备测试数据
+        initData();
+
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this,7);
+        gridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(gridLayoutManager);
+
+        //添加网格分割线
+        recyclerView.addItemDecoration(new GridItemDecoration(this,8));
+
+        //创建并设置适配器
+        adapter = new MyRecycleAdapter(this,dataList);
+        recyclerView.setAdapter(adapter);
+    }
+
+
+    // 初始化课程表数据
+    private void initData() {
+        dataList = new ArrayList<>();
+        // 第一行：星期标题（周一到周日）
+        dataList.add(new ItemData("周一", ""));
+        dataList.add(new ItemData("周二", ""));
+        dataList.add(new ItemData("周三", ""));
+        dataList.add(new ItemData("周四", ""));
+        dataList.add(new ItemData("周五", ""));
+        dataList.add(new ItemData("周六", ""));
+        dataList.add(new ItemData("周日", ""));
+
+        // 第二行：第一节课程
+        dataList.add(new ItemData("语文", "9:00-9:40"));
+        dataList.add(new ItemData("数学", "9:00-9:40"));
+        dataList.add(new ItemData("英语", "9:00-9:40"));
+        dataList.add(new ItemData("物理", "9:00-9:40"));
+        dataList.add(new ItemData("化学", "9:00-9:40"));
+        dataList.add(new ItemData("", ""));
+        dataList.add(new ItemData("", ""));
+
+        // 第三行：第二节课程
+        dataList.add(new ItemData("数学", "10:00-10:40"));
+        dataList.add(new ItemData("语文", "10:00-10:40"));
+        dataList.add(new ItemData("物理", "10:00-10:40"));
+        dataList.add(new ItemData("英语", "10:00-10:40"));
+        dataList.add(new ItemData("生物", "10:00-10:40"));
+        dataList.add(new ItemData("", ""));
+        dataList.add(new ItemData("", ""));
+
+        // 第四行：第三节课程
+        dataList.add(new ItemData("英语", "14:00-14:40"));
+        dataList.add(new ItemData("物理", "14:00-14:40"));
+        dataList.add(new ItemData("数学", "14:00-14:40"));
+        dataList.add(new ItemData("语文", "14:00-14:40"));
+        dataList.add(new ItemData("历史", "14:00-14:40"));
+        dataList.add(new ItemData("", ""));
+        dataList.add(new ItemData("", ""));
     }
 
 }
