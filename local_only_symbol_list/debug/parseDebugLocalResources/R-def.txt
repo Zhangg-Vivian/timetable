@@ -1,0 +1,24 @@
+R_DEF: Internal format may change without notice
+local
+color black
+color white
+drawable ic_launcher_background
+drawable ic_launcher_foreground
+id add_item
+id button_jump
+id main
+id remove_button
+id remove_item
+id textView
+layout activity_addactivity
+layout activity_homeactivity
+menu main
+mipmap ic_launcher
+mipmap ic_launcher_round
+string app_name
+string jump
+string remove_button
+style Base.Theme.MyApplication
+style Theme.MyApplication
+xml backup_rules
+xml data_extraction_rules
