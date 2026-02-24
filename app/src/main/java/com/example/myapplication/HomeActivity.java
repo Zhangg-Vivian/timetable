@@ -16,6 +16,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -89,6 +91,8 @@ public class HomeActivity extends AppCompatActivity {
         mdbHelper = MyDataBaseHelper.getInstance(this);
 
         queryCourse();
+        //调用网络请求
+        simpleNetRequest();
 
 
         //设置点击事件，实现跳转
@@ -132,6 +136,44 @@ public class HomeActivity extends AppCompatActivity {
         db.close();
         adapter.notifyDataSetChanged();
         Toast.makeText(this, "已加载" + dataList.size() + "门课程", Toast.LENGTH_SHORT).show();
+    }
+
+    //网络请求
+    private void simpleNetRequest() {
+        // 网络请求必须在子线程执行
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    // 访问任意可联网的地址
+                    URL url = new URL("https://www.baidu.com");
+                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                    //GET 请求
+                    conn.setRequestMethod("GET");
+                    // 5秒超时
+                    conn.setConnectTimeout(5000);
+                    // 建立连接
+                    conn.connect();
+
+
+                    if (conn.getResponseCode() == 200) {
+                        // 切回主线程更新UI（安卓规定）
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                dataList.add(new Course("网络课程", "10:00-11:00", "网络教室", "王老师"));
+                                // 刷新显示
+                                adapter.notifyDataSetChanged();
+                            }
+                        });
+                    }
+                    // 关闭连接
+                    conn.disconnect();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
     //删除课程

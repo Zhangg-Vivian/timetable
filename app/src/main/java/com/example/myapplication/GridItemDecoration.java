@@ -1,9 +1,9 @@
 package com.example.myapplication;
 
-import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.graphics.Rect;
 import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,8 +13,8 @@ public class GridItemDecoration extends RecyclerView.ItemDecoration {
     private int distance;
 
     //传入 dp 间距，自动转 px 适配屏幕
-    public GridItemDecoration(Context context,int dpValue) {
-        this.distance = (int) (dpValue*context.getResources().getDisplayMetrics().density+0.5f);
+    public GridItemDecoration(Context context, int dpValue) {
+        this.distance = (int) (dpValue * context.getResources().getDisplayMetrics().density + 0.5f);
     }
 
     @Override
@@ -30,19 +30,17 @@ public class GridItemDecoration extends RecyclerView.ItemDecoration {
         outRect.bottom = distance;
 
         //避免左边距重复
-        if (pos%spanCount == 0) {
+        if (pos % spanCount == 0) {
             outRect.left = distance;
-        }
-        else {
+        } else {
             outRect.left = 0;
         }
 
 
         //避免上边距重复
-        if(pos<spanCount) {
+        if (pos < spanCount) {
             outRect.top = distance;
-        }
-        else {
+        } else {
             outRect.top = 0;
         }
 

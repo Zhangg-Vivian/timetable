@@ -3,49 +3,49 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="100dp"
-    android:padding="4dp"
+    android:layout_margin="1dp"
     android:background="#f5f5f5"
-    android:layout_margin="1dp">
+    android:padding="4dp">
 
     <TextView
         android:id="@+id/tv_course_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textSize="11sp"
-        android:textColor="#333333"
-        android:maxLines="2"
         android:ellipsize="none"
-        app:layout_constraintTop_toTopOf="parent"
+        android:maxLines="2"
+        android:textColor="#333333"
+        android:textSize="11sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_course_time"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textSize="9sp"
-        android:textColor="#666666"
         android:maxLines="2"
-        app:layout_constraintTop_toBottomOf="@id/tv_course_name"
+        android:textColor="#666666"
+        android:textSize="9sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/tv_course_name" />
 
     <TextView
         android:id="@+id/tv_course_site"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textSize="9sp"
-        android:textColor="#666666"
         android:maxLines="2"
-        app:layout_constraintTop_toBottomOf="@id/tv_course_time"
+        android:textColor="#666666"
+        android:textSize="9sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/tv_course_time" />
 
     <TextView
         android:id="@+id/tv_course_teacher"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:visibility="gone"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
