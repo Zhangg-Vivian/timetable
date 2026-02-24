@@ -2,4 +2,10 @@
     <string name="app_name">课程表</string>
     <string name="jump">增加新课程</string>
     <string name="remove_button">删除课程</string>
+    <string name="et_course_name">课程名称</string>
+    <string name="et_course_teacher">授课老师</string>
+    <string name="et_course_day">第几周</string>
+    <string name="et_course_time">课程时间</string>
+    <string name="et_course_site">课程地点</string>
+    <string name="save_course">保存</string>
 </resources>

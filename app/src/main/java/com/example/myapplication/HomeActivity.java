@@ -89,7 +89,6 @@ public class HomeActivity extends AppCompatActivity {
 
         //初始化数据库帮助类
         mdbHelper = new MyDataBaseHelper(this, "CourseTable.db", 1);
-        SQLiteDatabase db = mdbHelper.getWritableDatabase();
 
         queryCourse();
 
@@ -138,7 +137,9 @@ public class HomeActivity extends AppCompatActivity {
         cv.put("ClassSite", site);
         cv.put("ClassTeacher", teacher);
         db.insert("Course", null, cv);
+        db.close();
         Toast.makeText(this, "课程添加成功", Toast.LENGTH_SHORT).show();
+        queryCourse();
     }
 
     public void queryCourse() {
@@ -161,9 +162,9 @@ public class HomeActivity extends AppCompatActivity {
                     dataList.add(new Course(name, time, site, teacher));
                 } while (cursor.moveToNext());
             }
+            cursor.close();
         }
-
-        cursor.close();
+        db.close();
         adapter.notifyDataSetChanged();
         Toast.makeText(this, "已加载" + dataList.size() + "门课程", Toast.LENGTH_SHORT).show();
     }
@@ -175,6 +176,7 @@ public class HomeActivity extends AppCompatActivity {
         }
         SQLiteDatabase db = mdbHelper.getWritableDatabase();
         db.delete("Course", "ClassName=?", new String[]{name});
+        db.close();
         //加一个提示
         Toast.makeText(this, "已删除【" + name + "】", Toast.LENGTH_SHORT).show();
         //刷新
@@ -192,6 +194,7 @@ public class HomeActivity extends AppCompatActivity {
         cv.put("ClassSite", newSite);
         cv.put("ClassTeacher", newTeacher);
         db.update("Course", cv, "ClassName = ?", new String[]{oldName});
+        db.close();
         //加一个提示
         Toast.makeText(this, "已修改【" + oldName + "】的信息", Toast.LENGTH_SHORT).show();
         //刷新列表
