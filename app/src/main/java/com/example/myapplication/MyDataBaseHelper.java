@@ -15,9 +15,9 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
     public static final String CREATE_BOOK = "create table Course("
             + "id integer primary key autoincrement,"
             + "ClassName text,"
-            + "ClassSite text,"
             + "ClassTime text,"
-            + "ClassTeacher text)";
+            + "ClassSite text,"
+            + "ClassTeacher text);";
 
 
     private Context mContext;
@@ -53,5 +53,19 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
         super(context, name, null, version);
         this.mContext = context;
     }
+
+    public class DBManager {
+        private MyDataBaseHelper dbHelper;
+        private SQLiteDatabase db;
+
+        //再创建一个内部类
+        public DBManager(Context context) {
+            dbHelper = new MyDataBaseHelper(context, null, 0);
+        }
+    }
+
+
+    //增加  增，删，查，改功能
+    //插入课程
 
 }

@@ -10,6 +10,7 @@ public class ItemData {
         this.content = content;
     }
 
+
     public String getTitle() {
         return title;
     }

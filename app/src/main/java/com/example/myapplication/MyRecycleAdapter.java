@@ -6,16 +6,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.List;
 
 public class MyRecycleAdapter extends RecyclerView.Adapter<MyRecycleAdapter.MyViewHolder> {
 
-    private final List<ItemData> mDataList;
+    private final List<Course> mDataList;
     private final Context mContext;
 
-    public MyRecycleAdapter(Context context, List<ItemData> dataList) {
+    public MyRecycleAdapter(Context context, List<Course> dataList) {
         this.mContext = context;
         this.mDataList = dataList;
     }
@@ -30,14 +32,12 @@ public class MyRecycleAdapter extends RecyclerView.Adapter<MyRecycleAdapter.MyVi
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        ItemData item = mDataList.get(position);
-        holder.tvTitle.setText(item.getTitle());
-        holder.tvContent.setText(item.getContent());
+        Course course = mDataList.get(position);
+        holder.tvTitle.setText(course.getName());
+        holder.tvContent.setText(course.getTime() + " | " + course.getSite());
 
         holder.itemView.setOnClickListener(v -> {
-            Toast.makeText(mContext,
-                    "点击了：" + item.getTitle(),
-                    Toast.LENGTH_SHORT).show();
+            Toast.makeText(holder.itemView.getContext(), "点击了：" + course.getName(), Toast.LENGTH_SHORT).show();
         });
     }
 
