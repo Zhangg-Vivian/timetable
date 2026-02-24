@@ -1,6 +1,8 @@
 package com.example.myapplication;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -8,7 +10,19 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MyDataBaseHelper extends SQLiteOpenHelper {
+
+
+    public MyDataBaseHelper(Context context) {
+        super(context, "CourseDB", null, 1);
+    }
+
+    public Context getmContext() {
+        return mContext;
+    }
 
     //创建建表语句
     public static final String CREATE_BOOK = "create table Course("
@@ -52,18 +66,46 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
         this.mContext = context;
     }
 
-    public class DBManager {
-        private MyDataBaseHelper dbHelper;
-        private SQLiteDatabase db;
-
-        //再创建一个内部类
-        public DBManager(Context context) {
-            dbHelper = new MyDataBaseHelper(context, null, 0);
-        }
+    //插入数据课程到数据库
+    public long insertCourse(String name, String time, String site, String teacher) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("ClassName", name);
+        cv.put("ClassTime", time);
+        cv.put("ClassSite", site);
+        cv.put("ClassTeacher", teacher);
+        long result = db.insert("Course", null, cv);
+        db.close();
+        return result;
     }
 
+    private static MyDataBaseHelper instance;
 
-    //增加  增，删，查，改功能
-    //插入课程
+    public static synchronized MyDataBaseHelper getInstance(Context context) {
+        if (instance == null) {
+            instance = new MyDataBaseHelper(context.getApplicationContext());
+        }
+        return instance;
+    }
+
+    // 查询所有课程，返回一个List<Course>
+    public List<Course> getAllCourses() {
+        List<Course> courseList = new ArrayList<>();
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.query("Course", null, null, null, null, null, null);
+
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
+                String name = cursor.getString(cursor.getColumnIndexOrThrow("ClassName"));
+                String time = cursor.getString(cursor.getColumnIndexOrThrow("ClassTime"));
+                String site = cursor.getString(cursor.getColumnIndexOrThrow("ClassSite"));
+                String teacher = cursor.getString(cursor.getColumnIndexOrThrow("ClassTeacher"));
+                courseList.add(new Course(name, time, site, teacher));
+            }
+            cursor.close();
+        }
+        db.close();
+        return courseList;
+    }
 
 }

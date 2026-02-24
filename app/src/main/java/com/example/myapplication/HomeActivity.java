@@ -63,8 +63,6 @@ public class HomeActivity extends AppCompatActivity {
         mdbHelper = new MyDataBaseHelper(this, "CourseTable.db", 1);
         //绑定所有按钮
         Button addBtn = findViewById(R.id.button_jump);
-        Button removeBtn = findViewById(R.id.remove_button);
-        Button recomposeBtn = findViewById(R.id.recompose_button);
         //找到 RecyclerView 控件
         recyclerView = findViewById(R.id.recyclerView);
 
@@ -88,7 +86,7 @@ public class HomeActivity extends AppCompatActivity {
 
 
         //初始化数据库帮助类
-        mdbHelper = new MyDataBaseHelper(this, "CourseTable.db", 1);
+        mdbHelper = MyDataBaseHelper.getInstance(this);
 
         queryCourse();
 
@@ -105,42 +103,9 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        // 测试删除按钮（先传固定值跑通）
-        removeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                removeClass("高等数学");
-            }
-        });
-
-        // 测试修改按钮
-        recomposeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                recomposeClass("高等数学", "周一3-4节", "2教202", "李老师");
-            }
-        });
-
 
     }
 
-
-    //插入数据课程到数据库
-    public void insertCourse(String name, String time, String site, String teacher) {
-        if (mdbHelper == null) {
-            return;
-        }
-        SQLiteDatabase db = mdbHelper.getWritableDatabase();
-        ContentValues cv = new ContentValues();
-        cv.put("ClassName", name);
-        cv.put("ClassTime", time);
-        cv.put("ClassSite", site);
-        cv.put("ClassTeacher", teacher);
-        db.insert("Course", null, cv);
-        db.close();
-        Toast.makeText(this, "课程添加成功", Toast.LENGTH_SHORT).show();
-        queryCourse();
-    }
 
     public void queryCourse() {
         if (mdbHelper == null || adapter == null) {
@@ -198,6 +163,12 @@ public class HomeActivity extends AppCompatActivity {
         //加一个提示
         Toast.makeText(this, "已修改【" + oldName + "】的信息", Toast.LENGTH_SHORT).show();
         //刷新列表
+        queryCourse();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         queryCourse();
     }
 }

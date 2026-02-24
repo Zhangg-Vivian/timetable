@@ -7,7 +7,12 @@ public class Course {
     private String site;
     private String teacher;
 
+
     public Course(String name, String time, String site, String teacher) {
+        this.name = name;
+        this.time = time;
+        this.site = site;
+        this.teacher = teacher;
     }
 
 
