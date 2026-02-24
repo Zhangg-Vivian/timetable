@@ -1,0 +1,57 @@
+package com.example.myapplication;
+
+import android.content.Context;
+import android.database.DatabaseErrorHandler;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+public class MyDataBaseHelper extends SQLiteOpenHelper {
+
+    //创建建表语句
+    public static final String CREATE_BOOK = "create table Course("
+            + "id integer primary key autoincrement,"
+            + "ClassName text,"
+            + "ClassSite text,"
+            + "ClassTime text,"
+            + "ClassTeacher text)";
+
+
+    private Context mContext;
+
+    public MyDataBaseHelper(Context c, String s, int i) {
+        super(c, s, null, i);
+    }
+
+
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        db.execSQL(CREATE_BOOK);
+        Toast.makeText(mContext, "Create succeeded", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL("drop table if exists Course");
+        onCreate(db);
+    }
+
+    public MyDataBaseHelper(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version, Context mContext) {
+        super(context, name, null, version);
+        this.mContext = context;
+    }
+
+    public MyDataBaseHelper(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version, @Nullable DatabaseErrorHandler errorHandler, Context mContext) {
+        super(context, name, factory, version, errorHandler);
+        this.mContext = context;
+    }
+
+    public MyDataBaseHelper(@Nullable Context context, @Nullable String name, int version, @NonNull SQLiteDatabase.OpenParams openParams, Context mContext) {
+        super(context, name, null, version);
+        this.mContext = context;
+    }
+
+}
