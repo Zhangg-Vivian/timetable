@@ -49,8 +49,9 @@ public class MyRecycleAdapter extends RecyclerView.Adapter<MyRecycleAdapter.MyVi
         // 给网状布局的4个TextView赋值（ID完全匹配你的布局）
         holder.tvCourseName.setText(course.getName());     // 课程名
         holder.tvCourseTime.setText(course.getTime());     // 时间
-        holder.tvCourseSite.setText(course.getSite());     // 地点
-        holder.tvCourseTeacher.setText(course.getTeacher()); // 老师
+        holder.tvCourseSite.setText(course.getSite() + " - " + course.getTeacher());
+        //格子放不下，隐藏老师，将地点与老师放在一起
+        holder.tvCourseTeacher.setVisibility(View.GONE);
 
         holder.itemView.setOnClickListener(v -> {
             Toast.makeText(mContext, "点击课程：" + course.getName(), Toast.LENGTH_SHORT).show();

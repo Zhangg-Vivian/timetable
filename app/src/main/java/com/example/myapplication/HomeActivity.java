@@ -71,7 +71,7 @@ public class HomeActivity extends AppCompatActivity {
 
 
         //布局出八列，七天还有第一列时间
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 8);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 5);
         gridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(gridLayoutManager);
 
@@ -82,7 +82,7 @@ public class HomeActivity extends AppCompatActivity {
 
 
         //添加网格分割线
-        recyclerView.addItemDecoration(new GridItemDecoration(this, 8));
+        recyclerView.addItemDecoration(new GridItemDecoration(this, 5));
 
 
         //初始化数据库帮助类
